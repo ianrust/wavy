@@ -3,7 +3,7 @@
 
 struct Data
 {
-    int * values; //array of values
+    int ** values; //array of values, and array for each channel
     int channels; //number of channels
     int samples; //total number of samples (eg if there are 2 channels, 2 values at the same time is considered 1 sample)
     int sample_rate; //number of samples per second

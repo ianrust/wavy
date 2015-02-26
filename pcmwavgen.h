@@ -54,9 +54,12 @@ static void writeData(const Data * const data, ofstream * const file)
     writeValue(data->sample_resolution * data->channels * data->samples,4,file); //bytes of data to be contained in the file;
 
     //loop through the data and write it
-    for (int i = 0; i < data->channels * data->samples; i++)
+    for (int s = 0; s < data->samples; s++)
     {
-        writeValue(data->values[i],data->sample_resolution,file);
+        for (int c = 0; c < data->channels; c++)
+        {
+            writeValue(data->values[c][s],data->sample_resolution,file);
+        }
     }
 
     writeValue(0,(data->sample_resolution * data->channels * data->samples) % 2,file); //padding byte;
