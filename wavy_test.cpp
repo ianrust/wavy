@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include "pcmwavgen.h"
 
@@ -16,8 +17,9 @@ int main(int argc,const char * argv[])
 
     Data data;
 
-    float frequency = 800;
-    float amplitude = 30000;
+    float frequency = 500;
+    data.sample_resolution = atoi(argv[1]);
+    float amplitude = pow(2,data.sample_resolution*8 - 1);
     data.sample_rate = 44100;
     int test_length = data.sample_rate*5;
 
@@ -29,7 +31,8 @@ int main(int argc,const char * argv[])
     for (int i = 0; i < test_length; i++)
     {
         float t = i/float(data.sample_rate);
-        int value = amplitude * sin(t * frequency*2*M_PI) * sin(t * 2*frequency*2*M_PI) * sin(t * 1/100*frequency*2*M_PI);
+        int value = amplitude * (sin(t * frequency*2*M_PI) * sin(t * 2*frequency*2*M_PI) * sin(t * 1/100*frequency*2*M_PI));
+        // std::cout << value << std::endl;
         if (i>test_length/2)
         {
             data.values[1][i] = value;
@@ -41,7 +44,6 @@ int main(int argc,const char * argv[])
     }
 
     data.samples  = test_length;
-    data.sample_resolution = 2;
 
     writeWav("test.wav",&data);
 

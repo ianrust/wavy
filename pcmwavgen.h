@@ -18,7 +18,7 @@ static void writeString(const char * const string, ofstream * const file)
 }
 
 //write any value in as many bytes specified
-static void writeValue(const unsigned int value,const int num_bytes_used, ofstream * const file)
+static void writeValue(const int value,const int num_bytes_used, ofstream * const file)
 {
     char byte;
     for (int i = 0; i < num_bytes_used; i++)
